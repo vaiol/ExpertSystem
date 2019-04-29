@@ -14,12 +14,15 @@ class ErrorHandler {
     throwErrors() {
         console.log('Errors:');
         for (const key in this.errors) {
-            ErrorHandler.displayErrors(this.errors[key], key)
+            if (this.errors.hasOwnProperty(key)) {
+                ErrorHandler.displayErrors(this.errors[key], key)
+            }
         }
         process.exit(1);
     }
     throwError(key, message) {
         this.errors[key] = [message];
+        this.throwErrors();
     }
 }
 
