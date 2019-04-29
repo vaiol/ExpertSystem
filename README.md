@@ -3,3 +3,7 @@ Program must accept one parameter, which is the input file. It will contain a li
 
 Usage:</br>
 ./Expertsystems example.txt
+
+
+ALL: 64 + 48 + 131 + 56 + 195 + 42 + 77 + 32 = 645
+COMPLETED: 64 + 48 + 20 = 132
