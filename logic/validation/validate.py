@@ -8,10 +8,6 @@ def validate_args():
 	return True		# todo
 
 
-def check_characters(line):
-	pass
-
-
 def validate_data(line, place):
 	errors = []
 	for char in line:
