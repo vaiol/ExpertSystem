@@ -1,0 +1,7 @@
+main program:
+    > cd logic
+    > python main.py path/to/file
+
+testing:
+    > cd logic
+    > python test.py

@@ -1,0 +1,4 @@
+fix validation:
+    implement validation steps, rules => facts => queries (else error?)
+fix processing:
+    1. fix and, or, xor in implication (result always undefined)

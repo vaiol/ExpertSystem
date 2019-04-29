@@ -1,0 +1,8 @@
+A=>!B
+A=>!E
+A=>(B+C)^(D|E)+F
+# Here, when we try to evaluate C we have : (B+C)^(D|E) is equivalent to :
+# !(B+C)+(D|E) | (B+C) + !(D|E) , we dont really care about the second part since B is False, so that lets us with
+# !B|!C where we know that B is False, i.e !B is True so we can't determine whether C is True or False => it's undefined rather than False by default.
+=A
+?BCDEF

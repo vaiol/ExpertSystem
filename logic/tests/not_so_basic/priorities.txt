@@ -1,0 +1,6 @@
+C|B+A=>D # supposed to be True 
+E^F|G=>H # supposed to be False
+I^J+K=>L # supposed to be True
+
+=CEGIJ
+?DHL

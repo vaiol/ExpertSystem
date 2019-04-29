@@ -1,0 +1,8 @@
+A=>B^C
+G=>C
+G=>B # those 3 lines are supposed to prompt 2 errors
+G=>E^F # Both undefined
+G=>!D
+A=>D^H # H supposed to be true
+=AG
+?BCEFDH

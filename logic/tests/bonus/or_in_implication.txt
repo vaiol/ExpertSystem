@@ -1,0 +1,18 @@
+A=>B|C
+G=>!C
+
+# B is True
+
+D=>E|F
+D=>E
+
+# F is undefined
+
+H=>I|J
+H=>I
+H=>J
+
+# No Error prompted
+
+=ADG
+?BCEF
