@@ -1,1 +1,2 @@
-''.join(re.split('[A-Z+()^!|?]+', item))
+el = ''.join(reversed("123"))
+print el
