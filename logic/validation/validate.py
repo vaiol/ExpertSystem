@@ -31,7 +31,7 @@ def validate_line(line):
 
 	if line[0] == '=' or line[0] == '?':
 		if line[0] == '=':
-			errors += validate_data(line[1:], 'facts')
+			errors += validate_data(line[:1], 'facts')
 
 		if line[0] == '?':
 			errors += validate_data(line[1:], 'queries')

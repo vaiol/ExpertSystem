@@ -9,7 +9,7 @@ const validateAargs = () => {
 };
 
 const validateData = (line, place) => {
-    let errors = [];
+    const errors = [];
     for (let i = 0; i < line.length; i++) {
         const char = line.charAt(i);
         if (char !== char.toUpperCase()) {
@@ -20,10 +20,12 @@ const validateData = (line, place) => {
 };
 
 const validateChars = (split, line) => {
-    let errors = [];
+    const errors = [];
     for (let item of split) {
-        let wrongChars = ''.join(item.split(/[A-Z+()^!|?]+/)); // TODO check
-        for (let char of wrongChars) {
+         // TODO check regexp
+        let wrongChars = item.split(/[A-Z+()^!|?]+/).join('');
+        for (let i = 0; i < wrongChars.length; i++) {
+            const char = wrongChars.charAt(i);
             errors.push(`Wrong character ${char} in ${line}`)
         }
     }
@@ -31,28 +33,28 @@ const validateChars = (split, line) => {
 };
 
 const validateLine = (line) => {
-    let errors = [];
+    const errors = [];
     if (line[0] === '=' || line[0] === '?') {
         if (line[0] === '=') {
-            errors += validateData(line.substring(1), 'facts')
+            errors.push(...validateData(line.slice(1), 'facts'))
         }
         if (line[0] === '?') {
-            errors += validateData(line.substring(1), 'queries')
+            errors.push(...validateData(line.slice(1), 'queries'))
         }
     } else {
-        if (line.search('<=>') > 0) {
+        if (line.includes('<=>')) {
             const split = line.split('<=>');
             if (split.length !== 2) {
                 errors.push(`Rule ${line} is not valid`);
             } else {
-                errors += validateChars(split, line);
+                errors.push(...validateChars(split, line));
             }
-        } else if (line.search('=>') > 0) {
+        } else if (line.includes('=>')) {
             const split = line.split('=>');
             if (split.length !== 2) {
                 errors.push(`Rule ${line} is not valid`);
             } else {
-                errors += validateChars(split, line);
+                errors.push(...validateChars(split, line));
             }
         } else {
             errors.push(`Rule ${line} is not valid`);
@@ -66,16 +68,15 @@ const validateLine = (line) => {
 };
 
 const validateKnownData = (facts, queries, factFlag) => {
-    let errors = [];
-    if (facts.length === 0 && !factFlag) {
+    const errors = [];
+    if (!facts.length && !factFlag) {
         errors.push('No facts');
     }
-    if (queries.length === 0) {
+    if (!queries.length) {
         errors.push('No queries');
     }
-    if (errors.length === 0) {
+    if (errors.length) {
         return errors;
-    } else {
-        return false;
     }
+    return false;
 };
