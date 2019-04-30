@@ -81,3 +81,11 @@ const validateKnownData = (facts, queries, factFlag) => {
     }
     return false;
 };
+
+module.exports = {
+    validateAargs,
+    validateData,
+    validateChars,
+    validateLine,
+    validateKnownData
+};
