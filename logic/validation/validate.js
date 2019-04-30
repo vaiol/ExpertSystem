@@ -1,7 +1,7 @@
 const { errorHandler } = require("../classes/ErrorHandler");
 
 
-const validateAargs = () => {
+const validateArgs = () => {
     // TODO check length
     if (process.argv.length !== 2) {
         errorHandler.showUsage();
@@ -83,7 +83,7 @@ const validateKnownData = (facts, queries, factFlag) => {
 };
 
 module.exports = {
-    validateAargs,
+    validateArgs,
     validateData,
     validateChars,
     validateLine,

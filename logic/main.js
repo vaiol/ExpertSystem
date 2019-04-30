@@ -1,13 +1,7 @@
-
 const { Expert } = require("./classes/expert");
 const { validateArgs } = require("./validation/validate");
 
-const prepare = () => {
-    // TODO
-};
-
 const main = () => {
-    prepare();
     validateArgs();
     const expert = new Expert(process.argv[1], false);
     expert.validateFile();
@@ -19,6 +13,4 @@ const main = () => {
 	expert.logResult();
 };
 
-if (__name__ === '__main__') {
-    main();
-}
+main();
