@@ -1,9 +1,10 @@
-import { ErrorHandler } from "../classes/ErrorHandler";
+const { errorHandler } = require("../classes/ErrorHandler");
+
 
 const validateAargs = () => {
     // TODO check length
     if (process.argv.length !== 2) {
-        ErrorHandler.displayErrors();
+        errorHandler.showUsage();
     }
     return true;
 };
