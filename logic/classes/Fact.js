@@ -14,19 +14,19 @@ class Fact {
     }
 
     static getState(rules) {
-        rules = rules.items();
+        rules = rules.items(); // TODO check items
 		let result = null;
-		for (const [key, val] of rules) {
-            if (result == null) {
+		for (const [key, val] in rules.entries()) { // TODO check rules
+            if (result === null) {
                 result = [ key, val ];
             } else {
                 if (result[1] === 'true' || result[1] === 'false') {
-                    if (val === 'true' || (val === 'false' && val !== result[1])) {
+                    if (val === 'true' || val === 'false' && val !== result[1]) {
                         errorHandler.throwError('processing', 'Conflicting Rules')
                     }
-                }
-                if (val === 'true' || val === 'false' || val === 'undefined') {
-                    result = [ key, val ];
+                    if (val === 'true' || val === 'false' || val === 'undefined') {
+                        result = [ key, val ];
+                    }
                 }
             }
         }
@@ -49,8 +49,8 @@ class Fact {
                 }
             }
             this.resolving = false;
-            if (trueRules.length) {
-                this.state = this.getState(trueRules);
+            if (trueRules) {
+                this.state = this.constructor.getState(trueRules);
             }
             return this.state;
         } else {
@@ -61,4 +61,6 @@ class Fact {
     }
 }
 
-module.exports = Fact;
+module.exports = {
+    Fact
+};
