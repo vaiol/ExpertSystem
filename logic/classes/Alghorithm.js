@@ -38,18 +38,18 @@ class Algorithm {
         return this.result;
     }
     manageOperators(operator) {
-        if (this.stack.length > 0) {
+        if (this.stack.length) {
             while (this.checkStack() && this.checkPriority(operator)) {
                 this.result += this.stack.pop();
             }
         }
-        this.stack.append(operator);
+        this.stack.push(operator);
     }
     manageBrackets(bracket, line) {
         if (bracket === this.brackets[0]) {
+            this.stack.push(bracket);
             return;
-        }
-        if (bracket === this.brackets[1]) {
+        } else if (bracket === this.brackets[1]) {
             while (this.stack.length && this.stack[-1] !== this.brackets[0]) {
                 this.result += this.stack.pop();
             }
@@ -69,4 +69,6 @@ class Algorithm {
     }
 }
 
-module.exports = Algorithm;
+module.exports = {
+    Algorithm
+};

@@ -13,11 +13,11 @@ class Resolver {
         }
     }
     static getOperator(implication, token, counter, operator) {
-        let expecctedOperands = 1;
+        let expectedOperands = 1;
         if (token !== '!') {
-            expecctedOperands = 2;
+            expectedOperands = 2;
         }
-        counter += expecctedOperands;
+        counter += expectedOperands;
         if (!operator) {
             operator = token;
             implication = implication.slice(0, -1);
@@ -36,7 +36,7 @@ class Resolver {
         const result = [];
         for (const operand of operands) {
             if (operands.includes(fact)) {
-                result.push(operand)
+                result.push(operand);
             }
         }
         return result;
@@ -93,8 +93,8 @@ class Resolver {
     }
     implicationNot(operands, facts, fact, convertedFlag) {
         // TODO check filter
-        operands = operands.filter(item => item);
-        if (operands.length > 1) {
+        operands = operands.filter(item => item.length);
+        if (operands.length) {
             errorHandler.throwError('processing', `To many operands ${operands}`);
         }
         return this.evaluateImplication(operands[0], facts, fact, !convertedFlag);
@@ -104,9 +104,9 @@ class Resolver {
             return this.implicationOr([`${operands[0]}!`, `${operands[1]}!`], facts, fact, false);
         }
         operands = this.constructor.getQuery(operands, fact);
-        const values = operands.map(operand => this.constructor.evaluateImplication(operand, facts, fact, false));
+        const values = operands.map(operand => this.evaluateImplication(operand, facts, fact, false));
         this.constructor.catchError(operands, values);
-        return Math.min(...values);
+        return Math.min(...values); // TODO
     }
     implicationOr(operands, facts, fact, convertedFlag) {
         if (convertedFlag) {
@@ -118,9 +118,9 @@ class Resolver {
         }
         if (queries.length === 1) {
             operands = operands.filter(item => item !== queries[0]);
-            if (this.evaluateConition(operands[0], facts) !== 'false') {
+            if (this.evaluateCondition(operands[0], facts) !== 'false') {
                 // TODO check this =>
-                if (this.evaluateConition(operands[0], facts) !== 'false') {
+                if (this.evaluateCondition(queries[0], facts) !== 'false') {
                     return 'undefined';
                 }
                 return 'none';
@@ -145,7 +145,7 @@ class Resolver {
         }
 		const leftCondition = `${operands[0]}!${operands[1]}+`;
 		const rightCondition = `${operands[0]}${operands[1]}!+`;
-		return self.implicationOr([leftCondition, rightCondition], facts, fact, false)
+		return this.implicationOr([leftCondition, rightCondition], facts, fact, false)
     }
     makeOperationCondition(token, operands) {
         if (token === '!') {
@@ -189,15 +189,15 @@ class Resolver {
                 }
 				while (expectedOperands) {
                     this.operands.push(this.stack.pop());
-                    expectedOperands -= 1
+                    expectedOperands -= 1;
                 }
 				this.stack.push(this.makeOperationCondition(token, this.operands));
             } else {
                 this.stack.push(facts[token].resolve()) // todo resolve  // todo what is facts
             }
         }
-		if (self.stack.length === 1) {
-		    return self.stack[0];
+		if (this.stack.length === 1) {
+		    return this.stack[0];
         }
 		errorHandler.throwError('processing', `Condition error ${condition}`);
     }
@@ -229,7 +229,7 @@ class Resolver {
                     }
                 } else if (counter === 1) {
 		            const operands = this.constructor.getOperands(index, implication);
-					return this.makeOperationImplication(currentOperator, operands, facts, fact, convertedFlag)
+					return this.makeOperationImplication(currentOperator, operands, facts, fact, convertedFlag);
                 } else {
 		            counter -= 1;
                 }
