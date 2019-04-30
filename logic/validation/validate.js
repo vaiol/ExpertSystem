@@ -81,3 +81,5 @@ const validateKnownData = (facts, queries, factFlag) => {
     }
     return false;
 };
+
+module.exports = Validate;
