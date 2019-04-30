@@ -15,7 +15,7 @@ class ErrorHandler {
         console.log('Errors:');
         for (const key in this.errors) {
             if (this.errors.hasOwnProperty(key)) {
-                ErrorHandler.displayErrors(this.errors[key], key)
+                this.constructor.displayErrors(this.errors[key], key)
             }
         }
         process.exit(1);
