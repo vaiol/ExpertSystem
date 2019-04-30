@@ -29,29 +29,29 @@ class Algorithm {
             } else if (this.brackets.includes(token)) {
                 this.manageBrackets(token, tokens);
             } else {
-                this.result += token;
+                this.result += token; // TODO check
             }
         }
         while (this.stack.length) {
-            this.result += this.stack.pop();
+            this.result += this.stack.pop(); // TODO check
         }
         return this.result;
     }
     manageOperators(operator) {
-        if (this.stack.length > 0) {
+        if (this.stack.length) {
             while (this.checkStack() && this.checkPriority(operator)) {
-                this.result += this.stack.pop();
+                this.result += this.stack.pop(); // TODO check
             }
         }
-        this.stack.append(operator);
+        this.stack.push(operator);
     }
     manageBrackets(bracket, line) {
         if (bracket === this.brackets[0]) {
+            this.stack.push(bracket);
             return;
-        }
-        if (bracket === this.brackets[1]) {
+        } else if (bracket === this.brackets[1]) {
             while (this.stack.length && this.stack[-1] !== this.brackets[0]) {
-                this.result += this.stack.pop();
+                this.result += this.stack.pop(); // TODO check
             }
             if (this.stack.length) {
                 this.stack.pop()
@@ -60,7 +60,7 @@ class Algorithm {
             }
         }
         while (this.stack.length && this.stack[-1] === '!') {
-            this.result += this.stack.pop();
+            this.result += this.stack.pop(); // TODO check
         }
     }
     erase() {
