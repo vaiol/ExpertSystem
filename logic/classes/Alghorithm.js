@@ -69,4 +69,6 @@ class Algorithm {
     }
 }
 
-module.exports = Algorithm;
+module.exports = {
+    Algorithm
+};
